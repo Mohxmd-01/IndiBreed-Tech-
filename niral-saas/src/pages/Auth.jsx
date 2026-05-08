@@ -147,7 +147,7 @@ export default function AuthPage({ onAuth }) {
         <div className="hero-inner">
           {/* Brand */}
           <div className="hero-brand">
-            <img src={indibreedLogo} alt="IndiBreed Tech" style={{ width: 64, height: 64, objectFit: 'contain' }} />
+            <img src={indibreedLogo} alt="IndiBreed Tech" style={{ width: 96, height: 96, objectFit: 'contain' }} />
             <span className="brand-name">IndiBreed Tech</span>
             <span className="brand-badge">v2</span>
           </div>
@@ -195,7 +195,7 @@ export default function AuthPage({ onAuth }) {
         {/* Top bar */}
         <div className="auth-topbar">
           <div className="topbar-logo">
-            <img src={indibreedLogo} alt="IndiBreed Tech" style={{ width: 36, height: 36, objectFit: 'contain' }} />
+            <img src={indibreedLogo} alt="IndiBreed Tech" style={{ width: 44, height: 44, objectFit: 'contain' }} />
             <span className="topbar-logo-text">IndiBreed Tech</span>
           </div>
 

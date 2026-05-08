@@ -32,12 +32,12 @@ function SidebarContent({ onClose, onLogout }) {
   return (
     <div className="flex flex-col h-full">
       {/* Brand */}
-      <div className="flex items-center justify-between px-3 py-3 border-b border-gray-100">
-        <div className="flex items-center gap-2.5">
-          <img src={indibreedLogo} alt="IndiBreed Tech" className="w-14 h-14 object-contain" />
+      <div className="flex items-center justify-between px-3 py-4 border-b border-gray-100">
+        <div className="flex items-center gap-3">
+          <img src={indibreedLogo} alt="IndiBreed Tech" className="w-20 h-20 object-contain" />
           <div className="leading-tight">
-            <span className="font-bold text-gray-900 text-sm block">IndiBreed Tech</span>
-            <span className="text-[10px] text-teal-600 font-medium">Data-Driven Livestock</span>
+            <span className="font-bold text-gray-900 text-base block">IndiBreed Tech</span>
+            <span className="text-[11px] text-teal-600 font-medium">Data-Driven Livestock</span>
           </div>
         </div>
         {onClose && (
