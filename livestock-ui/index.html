@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NiralFarm – Smart Cattle Management</title>
+  <meta name="description" content="IoT-powered smart cattle management for rural dairy farmers — track health, milk, finances and device data in one place."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style-ext.css"/>
+</head>
+<body>
+
+<!-- ====== TOAST ====== -->
+<div id="toast-container"></div>
+
+<!-- ====== LOGIN PAGE ====== -->
+<div id="page-login" class="page active">
+  <div class="login-split">
+    <div class="login-left">
+      <div class="brand"><span class="brand-icon">🐄</span><span class="brand-name">NiralFarm</span><span class="brand-iot-tag">IoT</span></div>
+      <h1 class="login-headline">Smart Dairy Management <span class="green-hl">for Rural Farmers</span></h1>
+      <p class="login-sub">Track cattle health, milk production, IoT collar data and get real-time alerts — all in one place.</p>
+      <div class="login-features">
+        <div class="feat-item"><span>📡</span>IoT Smart Collar Integration</div>
+        <div class="feat-item"><span>🐄</span>Manage entire herd easily</div>
+        <div class="feat-item"><span>🥛</span>Milk production tracking</div>
+        <div class="feat-item"><span>🤖</span>AI-powered health advisory</div>
+        <div class="feat-item"><span>💰</span>Financial tracking &amp; profit</div>
+      </div>
+    </div>
+    <div class="login-right">
+      <div class="login-card">
+        <h2 class="card-title">Welcome Back 👋</h2>
+        <p class="card-sub">Login to your farm dashboard</p>
+        <div class="lang-row">
+          <span class="lang-lbl">🌐 Language:</span>
+          <div class="lang-pills">
+            <button class="lang-pill active" onclick="setLoginLang('en',this)">English</button>
+            <button class="lang-pill" onclick="setLoginLang('hi',this)">हिंदी</button>
+            <button class="lang-pill" onclick="setLoginLang('mr',this)">मराठी</button>
+          </div>
+        </div>
+        <label class="field-label">📱 Mobile Number</label>
+        <div class="phone-row">
+          <span class="dial-code">+91</span>
+          <input id="phone-input" class="field-input" type="tel" placeholder="Enter 10-digit number" maxlength="10"/>
+        </div>
+        <button class="btn-primary" onclick="showOtp()">Get OTP →</button>
+        <p class="login-note">🔒 Free &amp; secure for dairy farmers</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== OTP PAGE ====== -->
+<div id="page-otp" class="page">
+  <div class="otp-center">
+    <div class="otp-card">
+      <button class="back-link" onclick="showPage('page-login')">← Back</button>
+      <div class="otp-emoji">🔐</div>
+      <h2>Verify OTP</h2>
+      <p class="otp-hint">Enter the 4-digit code sent to <strong id="otp-phone-display"></strong></p>
+      <div class="otp-row">
+        <input class="otp-box" maxlength="1" type="tel"/>
+        <input class="otp-box" maxlength="1" type="tel"/>
+        <input class="otp-box" maxlength="1" type="tel"/>
+        <input class="otp-box" maxlength="1" type="tel"/>
+      </div>
+      <button class="btn-primary" onclick="verifyOtp()">Verify &amp; Login ✓</button>
+      <p class="resend-line">Resend OTP in <span class="timer-txt">30s</span></p>
+      <p style="font-size:12px;color:#999;margin-top:8px">Demo: enter any 4 digits</p>
+    </div>
+  </div>
+</div>
+
+<!-- ====== MAIN APP ====== -->
+<div id="page-app" class="page">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon">🐄</span>
+      <span class="brand-name">NiralFarm</span>
+      <span class="sidebar-iot-tag">IoT</span>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-link active" id="nav-dashboard" onclick="showSection('dashboard')"><span class="nav-icon">🏠</span><span>Dashboard</span></button>
+      <button class="nav-link" id="nav-cattle" onclick="showSection('cattle')"><span class="nav-icon">🐄</span><span>Cattle</span></button>
+      <button class="nav-link" id="nav-devices" onclick="showSection('devices')"><span class="nav-icon">📡</span><span>Smart Collars</span></button>
+      <button class="nav-link" id="nav-milk" onclick="showSection('milk')"><span class="nav-icon">🥛</span><span>Milk Tracking</span></button>
+      <button class="nav-link" id="nav-alerts" onclick="showSection('alerts')"><span class="nav-icon">🔔</span><span>Alerts <span class="badge" id="alert-badge">0</span></span></button>
+      <button class="nav-link" id="nav-health" onclick="showSection('health')"><span class="nav-icon">❤️</span><span>Health</span></button>
+      <button class="nav-link" id="nav-finance" onclick="showSection('finance')"><span class="nav-icon">💰</span><span>Finance</span></button>
+      <button class="nav-link" id="nav-advisory" onclick="showSection('advisory')"><span class="nav-icon">🤖</span><span>Advisory</span></button>
+      <button class="nav-link" id="nav-profile" onclick="showSection('profile')"><span class="nav-icon">👨‍🌾</span><span>Profile</span></button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="lang-row-sidebar">
+        <span style="font-size:12px;font-weight:800;color:#666">🌐</span>
+        <button class="lang-pill-sm active" onclick="setAppLang('en',this)">EN</button>
+        <button class="lang-pill-sm" onclick="setAppLang('hi',this)">हि</button>
+        <button class="lang-pill-sm" onclick="setAppLang('mr',this)">म</button>
+      </div>
+      <div class="farmer-chip">
+        <span class="farmer-avatar">👨‍🌾</span>
+        <div>
+          <p class="farmer-name-sm" id="sidebar-name">Ramesh Patil</p>
+          <p class="farmer-loc" id="sidebar-loc">Nashik, Maharashtra</p>
+        </div>
+      </div>
+      <div class="offline-pill" id="offline-pill" style="display:none">📴 Offline Mode</div>
+      <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+    </div>
+  </aside>
+
+  <!-- Mobile Topbar -->
+  <div class="topbar-mobile">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <span class="topbar-brand">🐄 NiralFarm</span>
+    <button class="topbar-bell" onclick="showSection('alerts')">🔔<span class="bell-dot" id="bell-dot" style="display:none"></span></button>
+  </div>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- DASHBOARD -->
+    <section class="section active" id="section-dashboard">
+      <div class="page-header">
+        <div><p class="page-sub" id="dash-greeting">Good Morning 🌄</p><h1 class="page-title">Farm Dashboard</h1></div>
+        <button class="btn-primary small" onclick="openModal('modal-add-cattle')">+ Add Cattle</button>
+      </div>
+      <div id="dash-stats" class="stats-grid"></div>
+      <div class="two-col">
+        <div id="dash-quick"></div>
+        <div id="dash-chart"></div>
+      </div>
+      <div class="two-col">
+        <div id="dash-health-donut"></div>
+        <div id="dash-alerts-preview"></div>
+      </div>
+      <div id="dash-herd-table"></div>
+    </section>
+
+    <!-- CATTLE LIST -->
+    <section class="section" id="section-cattle">
+      <div class="page-header">
+        <div><p class="page-sub">Manage your herd</p><h1 class="page-title">Cattle Management</h1></div>
+        <button class="btn-primary small" onclick="openModal('modal-add-cattle')">+ Add Cattle</button>
+      </div>
+      <div class="search-filter-row">
+        <div class="search-box"><span>🔍</span><input type="text" id="cattle-search" class="search-input" placeholder="Search cattle..." oninput="renderCattleGrid()"/></div>
+        <div class="filter-pills">
+          <button class="filter-pill active" onclick="setCattleFilter('all',this)">All</button>
+          <button class="filter-pill" onclick="setCattleFilter('healthy',this)">🟢 Healthy</button>
+          <button class="filter-pill" onclick="setCattleFilter('warning',this)">🟡 Warning</button>
+          <button class="filter-pill" onclick="setCattleFilter('critical',this)">🔴 Critical</button>
+          <button class="filter-pill" onclick="setCattleFilter('pregnant',this)">🤰 Pregnant</button>
+        </div>
+      </div>
+      <div id="cattle-grid" class="cattle-grid"></div>
+    </section>
+
+    <!-- COW DETAIL -->
+    <section class="section" id="section-cow-detail">
+      <div class="page-header">
+        <button class="back-btn" onclick="showSection('cattle')">← Back to Herd</button>
+        <div id="cow-detail-actions"></div>
+      </div>
+      <div id="cow-detail-hero"></div>
+      <div class="cow-tabs" id="cow-tabs">
+        <button class="cow-tab active" onclick="setCowTab('live',this)">📡 Live</button>
+        <button class="cow-tab" onclick="setCowTab('milk',this)">🥛 Milk</button>
+        <button class="cow-tab" onclick="setCowTab('health',this)">❤️ Health</button>
+        <button class="cow-tab" onclick="setCowTab('vaccine',this)">💉 Vaccines</button>
+        <button class="cow-tab" onclick="setCowTab('repro',this)">🐣 Repro</button>
+        <button class="cow-tab" onclick="setCowTab('location',this)">📍 Location</button>
+      </div>
+      <div id="cow-detail-content"></div>
+    </section>
+
+    <!-- SMART COLLARS -->
+    <section class="section" id="section-devices">
+      <div class="page-header">
+        <div><p class="page-sub">IoT Smart Collars</p><h1 class="page-title">Device Management</h1></div>
+        <button class="btn-primary small" onclick="openModal('modal-add-device')">+ Add Collar</button>
+      </div>
+      <div id="devices-stats" class="stats-grid"></div>
+      <div id="devices-list"></div>
+    </section>
+
+    <!-- MILK TRACKING -->
+    <section class="section" id="section-milk">
+      <div class="page-header">
+        <div><p class="page-sub">Daily yield recording</p><h1 class="page-title">Milk Tracking</h1></div>
+        <button class="btn-primary small" onclick="openModal('modal-record-milk')">+ Record Milk</button>
+      </div>
+      <div id="milk-stats" class="stats-grid"></div>
+      <div class="two-col">
+        <div id="milk-chart"></div>
+        <div id="milk-entry-quick"></div>
+      </div>
+      <div id="milk-per-cow"></div>
+    </section>
+
+    <!-- ALERTS -->
+    <section class="section" id="section-alerts">
+      <div class="page-header">
+        <div><p class="page-sub">Real-time notifications</p><h1 class="page-title">Alerts &amp; Notifications</h1></div>
+        <div id="alerts-chips"></div>
+      </div>
+      <div class="filter-pills" style="margin-bottom:20px">
+        <button class="filter-pill active" onclick="setAlertFilter('all',this)">All</button>
+        <button class="filter-pill" onclick="setAlertFilter('critical',this)">🔴 Critical</button>
+        <button class="filter-pill" onclick="setAlertFilter('warning',this)">🟡 Warning</button>
+        <button class="filter-pill" onclick="setAlertFilter('info',this)">🟢 Info</button>
+        <button class="filter-pill" onclick="setAlertFilter('resolved',this)">✅ Resolved</button>
+      </div>
+      <div id="alerts-grid" class="alerts-grid"></div>
+    </section>
+
+    <!-- HEALTH -->
+    <section class="section" id="section-health">
+      <div class="page-header">
+        <div><p class="page-sub">Overall herd wellness</p><h1 class="page-title">Health Status</h1></div>
+        <button class="btn-outline small" onclick="openModal('modal-add-vaccine')">💉 Add Vaccine Record</button>
+      </div>
+      <div id="health-stats" class="stats-grid"></div>
+      <div class="two-col">
+        <div id="health-table-card"></div>
+        <div id="vaccine-card"></div>
+      </div>
+    </section>
+
+    <!-- FINANCE -->
+    <section class="section" id="section-finance">
+      <div class="page-header">
+        <div><p class="page-sub">Farm income &amp; profit</p><h1 class="page-title">Financial Tracking</h1></div>
+      </div>
+      <div id="finance-stats" class="stats-grid"></div>
+      <div class="two-col">
+        <div id="finance-chart"></div>
+        <div id="finance-settings"></div>
+      </div>
+      <div id="finance-per-cow"></div>
+    </section>
+
+    <!-- ADVISORY -->
+    <section class="section" id="section-advisory">
+      <div class="page-header">
+        <div><p class="page-sub">AI-powered recommendations</p><h1 class="page-title">Smart Advisory</h1></div>
+      </div>
+      <div id="advisory-content"></div>
+    </section>
+
+    <!-- PROFILE -->
+    <section class="section" id="section-profile">
+      <div class="page-header">
+        <div><p class="page-sub">Your account &amp; settings</p><h1 class="page-title">Profile</h1></div>
+        <button class="btn-outline small" id="edit-profile-btn" onclick="toggleEditProfile()">✏️ Edit</button>
+      </div>
+      <div id="profile-content"></div>
+    </section>
+
+  </main>
+
+  <!-- Mobile Bottom Nav -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <button class="bnav-btn active" id="bnav-dashboard" onclick="showSection('dashboard')"><span>🏠</span><span>Home</span></button>
+    <button class="bnav-btn" id="bnav-cattle" onclick="showSection('cattle')"><span>🐄</span><span>Cattle</span></button>
+    <button class="bnav-btn" id="bnav-milk" onclick="showSection('milk')"><span>🥛</span><span>Milk</span></button>
+    <button class="bnav-btn" id="bnav-alerts" onclick="showSection('alerts')"><span>🔔</span><span>Alerts</span></button>
+    <button class="bnav-btn" id="bnav-profile" onclick="showSection('profile')"><span>👤</span><span>Profile</span></button>
+  </nav>
+</div>
+
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeAllModals()"></div>
+
+<!-- ADD CATTLE MODAL -->
+<div class="modal" id="modal-add-cattle">
+  <div class="modal-header"><h2>🐄 Add New Cattle</h2><button class="modal-close" onclick="closeAllModals()">✕</button></div>
+  <div class="modal-body">
+    <div class="form-grid">
+      <div class="form-group"><label class="field-label">Name *</label><input type="text" id="add-name" class="field-input standalone" placeholder="e.g. Lakshmi"/></div>
+      <div class="form-group"><label class="field-label">Tag ID</label><input type="text" id="add-tagid" class="field-input standalone" placeholder="e.g. TAG-009"/></div>
+      <div class="form-group"><label class="field-label">Breed</label>
+        <select id="add-breed" class="field-select"><option>Gir</option><option>HF Cross</option><option>Sahiwal</option><option>Murrah Buffalo</option><option>Jersey Cross</option><option>Tharparkar</option><option>Rathi</option><option>Kankrej</option><option>Other</option></select>
+      </div>
+      <div class="form-group"><label class="field-label">Age (Years)</label><input type="number" id="add-age" class="field-input standalone" placeholder="4" min="0" max="20"/></div>
+      <div class="form-group"><label class="field-label">Weight (kg)</label><input type="number" id="add-weight" class="field-input standalone" placeholder="400" min="50"/></div>
+      <div class="form-group"><label class="field-label">Lactation Stage</label>
+        <select id="add-lactation" class="field-select"><option value="0">Dry / Not milking</option><option value="1">1st Lactation</option><option value="2">2nd Lactation</option><option value="3">3rd Lactation</option><option value="4">4th+ Lactation</option></select>
+      </div>
+      <div class="form-group"><label class="field-label">Health Status</label>
+        <select id="add-health" class="field-select"><option value="healthy">🟢 Healthy</option><option value="warning">🟡 Warning</option><option value="critical">🔴 Critical</option></select>
+      </div>
+      <div class="form-group"><label class="field-label">Pregnant?</label>
+        <div class="toggle-row"><button class="toggle-btn active" id="preg-no" onclick="setToggle('preg-no','preg-yes')">No</button><button class="toggle-btn" id="preg-yes" onclick="setToggle('preg-yes','preg-no')">Yes 🤰</button></div>
+      </div>
+      <div class="form-group full"><label class="field-label">Notes</label><input type="text" id="add-notes" class="field-input standalone" placeholder="Optional notes..."/></div>
+    </div>
+    <button class="btn-primary" style="margin-top:20px" onclick="addCattle()">Save Cattle ✓</button>
+  </div>
+</div>
+
+<!-- EDIT CATTLE MODAL -->
+<div class="modal" id="modal-edit-cattle">
+  <div class="modal-header"><h2>✏️ Edit Cattle</h2><button class="modal-close" onclick="closeAllModals()">✕</button></div>
+  <div class="modal-body">
+    <input type="hidden" id="edit-cattle-id"/>
+    <div class="form-grid">
+      <div class="form-group"><label class="field-label">Name *</label><input type="text" id="edit-name" class="field-input standalone"/></div>
+      <div class="form-group"><label class="field-label">Tag ID</label><input type="text" id="edit-tagid" class="field-input standalone"/></div>
+      <div class="form-group"><label class="field-label">Breed</label>
+        <select id="edit-breed" class="field-select"><option>Gir</option><option>HF Cross</option><option>Sahiwal</option><option>Murrah Buffalo</option><option>Jersey Cross</option><option>Tharparkar</option><option>Rathi</option><option>Kankrej</option><option>Other</option></select>
+      </div>
+      <div class="form-group"><label class="field-label">Age (Years)</label><input type="number" id="edit-age" class="field-input standalone" min="0" max="20"/></div>
+      <div class="form-group"><label class="field-label">Weight (kg)</label><input type="number" id="edit-weight" class="field-input standalone" min="50"/></div>
+      <div class="form-group"><label class="field-label">Lactation Stage</label>
+        <select id="edit-lactation" class="field-select"><option value="0">Dry / Not milking</option><option value="1">1st Lactation</option><option value="2">2nd Lactation</option><option value="3">3rd Lactation</option><option value="4">4th+ Lactation</option></select>
+      </div>
+      <div class="form-group"><label class="field-label">Health Status</label>
+        <select id="edit-health" class="field-select"><option value="healthy">🟢 Healthy</option><option value="warning">🟡 Warning</option><option value="critical">🔴 Critical</option></select>
+      </div>
+      <div class="form-group"><label class="field-label">Pregnant?</label>
+        <div class="toggle-row"><button class="toggle-btn active" id="epreg-no" onclick="setToggle('epreg-no','epreg-yes')">No</button><button class="toggle-btn" id="epreg-yes" onclick="setToggle('epreg-yes','epreg-no')">Yes 🤰</button></div>
+      </div>
+      <div class="form-group full"><label class="field-label">Notes</label><input type="text" id="edit-notes" class="field-input standalone" placeholder="Optional notes..."/></div>
+    </div>
+    <button class="btn-primary" style="margin-top:20px" onclick="saveEditCattle()">Save Changes ✓</button>
+  </div>
+</div>
+
+<!-- ADD DEVICE MODAL -->
+<div class="modal" id="modal-add-device">
+  <div class="modal-header"><h2>📡 Add Smart Collar</h2><button class="modal-close" onclick="closeAllModals()">✕</button></div>
+  <div class="modal-body">
+    <div class="toggle-row" style="margin-bottom:20px">
+      <button class="toggle-btn active" id="dtab-manual" onclick="setDeviceTab('manual')">📝 Enter ID</button>
+      <button class="toggle-btn" id="dtab-qr" onclick="setDeviceTab('qr')">📷 Scan QR</button>
+    </div>
+    <div id="device-manual-tab">
+      <label class="field-label">Collar ID *</label>
+      <input type="text" id="add-collar-id" class="field-input standalone" placeholder="e.g. SC-4021"/>
+      <label class="field-label" style="margin-top:16px">Link to Cattle</label>
+      <select id="add-collar-cow" class="field-select"></select>
+    </div>
+    <div id="device-qr-tab" style="display:none">
+      <div class="qr-scan-box">
+        <div class="qr-scan-frame"><div class="qr-line"></div></div>
+        <p style="margin-top:12px;font-size:14px;color:#666;font-weight:700">Point camera at collar QR code</p>
+        <button class="btn-outline" style="margin-top:12px;width:auto" onclick="simulateQrScan()">📷 Simulate Scan (Demo)</button>
+        <div id="qr-result" style="display:none;margin-top:12px;padding:12px;background:#d8f3dc;border-radius:12px;font-weight:800;color:#1b4332"></div>
+      </div>
+      <label class="field-label" style="margin-top:16px">Link to Cattle</label>
+      <select id="add-collar-cow-qr" class="field-select"></select>
+    </div>
+    <button class="btn-primary" style="margin-top:24px" onclick="addDevice()">Add Device ✓</button>
+  </div>
+</div>
+
+<!-- RECORD MILK MODAL -->
+<div class="modal" id="modal-record-milk">
+  <div class="modal-header"><h2>🥛 Record Milk</h2><button class="modal-close" onclick="closeAllModals()">✕</button></div>
+  <div class="modal-body">
+    <div class="form-grid">
+      <div class="form-group full"><label class="field-label">Select Cattle</label><select id="milk-cow-select" class="field-select"></select></div>
+      <div class="form-group"><label class="field-label">Morning Yield (L)</label><input type="number" id="milk-morning" class="field-input standalone" placeholder="0.0" step="0.1" min="0"/></div>
+      <div class="form-group"><label class="field-label">Evening Yield (L)</label><input type="number" id="milk-evening" class="field-input standalone" placeholder="0.0" step="0.1" min="0"/></div>
+      <div class="form-group full"><label class="field-label">Date</label><input type="date" id="milk-date" class="field-input standalone"/></div>
+    </div>
+    <button class="btn-primary" style="margin-top:20px" onclick="recordMilk()">Save Record ✓</button>
+  </div>
+</div>
+
+<!-- ADD VACCINE MODAL -->
+<div class="modal" id="modal-add-vaccine">
+  <div class="modal-header"><h2>💉 Add Vaccine Record</h2><button class="modal-close" onclick="closeAllModals()">✕</button></div>
+  <div class="modal-body">
+    <div class="form-grid">
+      <div class="form-group full"><label class="field-label">Select Cattle</label><select id="vac-cow-select" class="field-select"></select></div>
+      <div class="form-group"><label class="field-label">Vaccine Name</label>
+        <select id="vac-name" class="field-select"><option>FMD</option><option>HS</option><option>BQ</option><option>PPR</option><option>Brucellosis</option><option>IBR</option><option>Other</option></select>
+      </div>
+      <div class="form-group"><label class="field-label">Date Given</label><input type="date" id="vac-date" class="field-input standalone"/></div>
+      <div class="form-group"><label class="field-label">Next Due Date</label><input type="date" id="vac-next" class="field-input standalone"/></div>
+      <div class="form-group"><label class="field-label">Vet Name</label><input type="text" id="vac-vet" class="field-input standalone" placeholder="Dr. Name"/></div>
+      <div class="form-group"><label class="field-label">Notes</label><input type="text" id="vac-notes" class="field-input standalone" placeholder="Optional..."/></div>
+    </div>
+    <button class="btn-primary" style="margin-top:20px" onclick="addVaccination()">Save Record ✓</button>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="app-core.js"></script>
+<script src="app-dashboard.js"></script>
+<script src="app-cattle.js"></script>
+<script src="app-detail.js"></script>
+<script src="app-sections.js"></script>
+<script src="app-finance-advisory.js"></script>
+</body>
+</html>

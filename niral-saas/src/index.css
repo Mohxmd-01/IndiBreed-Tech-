@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { @apply bg-gray-50 text-gray-900 antialiased; }
+  * { @apply border-gray-200; }
+}
+
+@layer components {
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-500 cursor-pointer transition-all duration-150 hover:bg-gray-100 hover:text-gray-900 select-none;
+  }
+  .nav-item.active {
+    @apply bg-green-50 text-green-700 font-semibold;
+  }
+  .stat-card {
+    @apply bg-white rounded-2xl p-5 shadow-card border border-gray-100 hover:shadow-card-hover transition-shadow duration-200;
+  }
+  .btn-primary {
+    @apply flex items-center gap-2 px-4 py-2 bg-green-600 text-white text-sm font-semibold rounded-xl hover:bg-green-700 transition-colors duration-150 cursor-pointer;
+  }
+  .btn-secondary {
+    @apply flex items-center gap-2 px-4 py-2 bg-white text-gray-700 text-sm font-semibold rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors duration-150 cursor-pointer;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+  }
+  .badge-green  { @apply bg-green-100 text-green-700; }
+  .badge-yellow { @apply bg-yellow-100 text-yellow-700; }
+  .badge-red    { @apply bg-red-100 text-red-700; }
+  .badge-blue   { @apply bg-blue-100 text-blue-700; }
+  .badge-gray   { @apply bg-gray-100 text-gray-600; }
+  .card { @apply bg-white rounded-2xl border border-gray-100 shadow-card; }
+  .input {
+    @apply w-full px-3.5 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500/30 focus:border-green-500 transition-all duration-150 bg-white;
+  }
+  .select {
+    @apply w-full px-3.5 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500/30 focus:border-green-500 transition-all duration-150 bg-white cursor-pointer;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 9999px; }
+
+/* Sidebar transition */
+.sidebar-enter { transform: translateX(-100%); }
+.sidebar-enter-active { transform: translateX(0); transition: transform 250ms ease; }
