@@ -25,16 +25,16 @@ function SidebarContent({ onClose, onLogout }) {
   const [confirmLogout, setConfirmLogout] = useState(false);
 
   const doLogout = () => {
-    localStorage.removeItem('niralFarm_auth'); // key kept for compatibility
+    localStorage.removeItem('niralFarm_auth');
     onLogout?.();
   };
 
   return (
     <div className="flex flex-col h-full">
       {/* Brand */}
-      <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100">
-        <div className="flex items-center gap-2">
-          <img src={indibreedLogo} alt="IndiBreed Tech" className="w-10 h-10 object-contain" />
+      <div className="flex items-center justify-between px-3 py-3 border-b border-gray-100">
+        <div className="flex items-center gap-2.5">
+          <img src={indibreedLogo} alt="IndiBreed Tech" className="w-14 h-14 object-contain" />
           <div className="leading-tight">
             <span className="font-bold text-gray-900 text-sm block">IndiBreed Tech</span>
             <span className="text-[10px] text-teal-600 font-medium">Data-Driven Livestock</span>
