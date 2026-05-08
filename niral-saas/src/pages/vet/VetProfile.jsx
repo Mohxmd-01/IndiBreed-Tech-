@@ -65,10 +65,10 @@ export default function VetProfile({ onLogout }) {
 
       {/* Logout */}
       <button onClick={onLogout} style={{ width:'100%', padding:'13px', background:'#fef2f2', border:'1.5px solid #fca5a5', color:'#dc2626', borderRadius:'14px', fontSize:'13px', fontWeight:700, cursor:'pointer' }}>
-        Logout from NiralFarm
+        Logout from IndiBreed Tech
       </button>
 
-      <p style={{ margin:'1rem 0 0', textAlign:'center', fontSize:'11px', color:'#94a3b8' }}>NiralFarm v2 · Veterinarian Portal</p>
+      <p style={{ margin:'1rem 0 0', textAlign:'center', fontSize:'11px', color:'#94a3b8' }}>IndiBreed Tech v2 · Veterinarian Portal</p>
     </div>
   );
 }

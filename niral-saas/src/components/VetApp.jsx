@@ -34,7 +34,7 @@ function VetSidebar({ onLogout, onClose }) {
             <Stethoscope size={16} color="white" />
           </div>
           <div>
-            <p style={{ margin:0, fontSize:'13px', fontWeight:800, color:'#0f172a' }}>NiralFarm</p>
+            <p style={{ margin:0, fontSize:'13px', fontWeight:800, color:'#0f172a' }}>IndiBreed Tech</p>
             <p style={{ margin:0, fontSize:'10px', fontWeight:700, color:'#0284c7' }}>🩺 Vet Portal</p>
           </div>
         </div>
@@ -82,7 +82,7 @@ function VetSidebar({ onLogout, onClose }) {
           <div style={{ padding:'10px 12px', background:'#fef2f2', border:'1px solid #fca5a5', borderRadius:'11px' }}>
             <div style={{ display:'flex', alignItems:'center', gap:'6px', marginBottom:'8px' }}>
               <AlertTriangle size={12} color="#dc2626" />
-              <p style={{ margin:0, fontSize:'11px', fontWeight:700, color:'#dc2626' }}>Logout from NiralFarm?</p>
+              <p style={{ margin:0, fontSize:'11px', fontWeight:700, color:'#dc2626' }}>Logout from IndiBreed Tech?</p>
             </div>
             <div style={{ display:'flex', gap:'6px' }}>
               <button onClick={doLogout} style={{ flex:1, padding:'6px', background:'#dc2626', color:'white', border:'none', borderRadius:'8px', fontSize:'11px', fontWeight:700, cursor:'pointer' }}>Yes</button>

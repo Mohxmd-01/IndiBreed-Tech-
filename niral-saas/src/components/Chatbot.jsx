@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { getChatResponse } from '../data/chatRules';
 
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
-const SYSTEM_PROMPT = `You are NiralFarm AI, an expert agricultural assistant for Indian dairy farmers. 
+const SYSTEM_PROMPT = `You are IndiBreed Tech AI, an expert agricultural assistant for Indian dairy farmers. 
 You speak in simple, farmer-friendly language. You know about:
 - Cattle health, diseases, symptoms and treatments
 - Milk production optimization and troubleshooting
@@ -98,7 +98,7 @@ export default function Chatbot() {
           'Authorization': `Bearer ${key}`,
           'Content-Type': 'application/json',
           'HTTP-Referer': 'https://niralFarm.app',
-          'X-Title': 'NiralFarm AI',
+          'X-Title': 'IndiBreed Tech AI',
         },
         body: JSON.stringify({
           model: 'openai/gpt-3.5-turbo',

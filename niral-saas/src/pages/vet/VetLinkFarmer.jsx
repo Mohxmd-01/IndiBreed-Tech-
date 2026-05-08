@@ -32,7 +32,7 @@ export default function VetLinkFarmer() {
       else if (status === 409)
         setSuccess('⏳ A link request is already pending with this farmer. Waiting for their approval.');
       else if (status === 404)
-        setErr(`No farmer found with phone ${phone}. Make sure they are registered on NiralFarm.`);
+        setErr(`No farmer found with phone ${phone}. Make sure they are registered on IndiBreed Tech.`);
       else if (!e.response)
         setErr('Cannot reach the server. Make sure the backend is running on port 4000.');
       else

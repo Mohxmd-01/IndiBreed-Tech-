@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useApp } from '../context/AppContext';
+import indibreedLogo from '../assets/indibreed-logo.svg';
 
 const NAV_KEYS = [
   { key: 'dashboard', icon: LayoutDashboard, tKey: 'dashboard' },
@@ -24,21 +25,19 @@ function SidebarContent({ onClose, onLogout }) {
   const [confirmLogout, setConfirmLogout] = useState(false);
 
   const doLogout = () => {
-    localStorage.removeItem('niralFarm_auth');
+    localStorage.removeItem('niralFarm_auth'); // key kept for compatibility
     onLogout?.();
   };
 
   return (
     <div className="flex flex-col h-full">
       {/* Brand */}
-      <div className="flex items-center justify-between px-4 py-5 border-b border-gray-100">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 bg-green-600 rounded-xl flex items-center justify-center">
-            <Beef size={18} className="text-white" />
-          </div>
-          <div>
-            <span className="font-bold text-gray-900 text-sm">NiralFarm</span>
-            <span className="ml-1.5 text-[10px] font-semibold bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full">IoT</span>
+      <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100">
+        <div className="flex items-center gap-2">
+          <img src={indibreedLogo} alt="IndiBreed Tech" className="w-10 h-10 object-contain" />
+          <div className="leading-tight">
+            <span className="font-bold text-gray-900 text-sm block">IndiBreed Tech</span>
+            <span className="text-[10px] text-teal-600 font-medium">Data-Driven Livestock</span>
           </div>
         </div>
         {onClose && (
@@ -96,7 +95,7 @@ function SidebarContent({ onClose, onLogout }) {
           <div className="mx-1 p-3 bg-red-50 border border-red-100 rounded-xl">
             <div className="flex items-center gap-2 mb-2.5">
               <AlertTriangle size={14} className="text-red-500 shrink-0" />
-              <p className="text-xs font-semibold text-red-700">Logout from NiralFarm?</p>
+              <p className="text-xs font-semibold text-red-700">Logout from IndiBreed Tech?</p>
             </div>
             <div className="flex gap-2">
               <button

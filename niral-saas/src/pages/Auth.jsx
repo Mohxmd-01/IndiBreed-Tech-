@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Eye, EyeOff, Globe, ArrowRight, Loader, CheckCircle,
-  Phone, Lock, User, Sparkles, Beef, ShieldCheck, Activity, Zap
+  Phone, Lock, User, Sparkles, ShieldCheck, Activity, Zap
 } from 'lucide-react';
 import { authAPI } from '../services/api';
+import indibreedLogo from '../assets/indibreed-logo.svg';
 import './Auth.css';
 
 /* ── Constants ─────────────────────────────────────────────────── */
@@ -146,10 +147,8 @@ export default function AuthPage({ onAuth }) {
         <div className="hero-inner">
           {/* Brand */}
           <div className="hero-brand">
-            <div className="brand-icon">
-              <Beef size={22} color="#fff" />
-            </div>
-            <span className="brand-name">NiralFarm</span>
+            <img src={indibreedLogo} alt="IndiBreed Tech" style={{ width: 44, height: 44, objectFit: 'contain' }} />
+            <span className="brand-name">IndiBreed Tech</span>
             <span className="brand-badge">v2</span>
           </div>
 
@@ -196,8 +195,8 @@ export default function AuthPage({ onAuth }) {
         {/* Top bar */}
         <div className="auth-topbar">
           <div className="topbar-logo">
-            <div className="topbar-logo-icon"><Beef size={15} color="#fff" /></div>
-            <span className="topbar-logo-text">NiralFarm</span>
+            <img src={indibreedLogo} alt="IndiBreed Tech" style={{ width: 28, height: 28, objectFit: 'contain' }} />
+            <span className="topbar-logo-text">IndiBreed Tech</span>
           </div>
 
           {/* Language switcher */}
@@ -253,7 +252,7 @@ export default function AuthPage({ onAuth }) {
               <>
                 <div className="form-header">
                   <h2 className="form-title">Welcome back</h2>
-                  <p className="form-sub">Sign in to your NiralFarm account</p>
+                  <p className="form-sub">Sign in to your IndiBreed Tech account</p>
                 </div>
 
                 <div className="input-group">

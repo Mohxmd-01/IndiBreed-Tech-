@@ -25,7 +25,7 @@ function OnboardingWizard({ db, navigate }) {
       <div style={{ maxWidth: '520px', margin: '0 auto' }}>
         <div style={{ marginBottom: '1.5rem' }}>
           <h1 style={{ margin: '0 0 4px', fontSize: '1.5rem', fontWeight: 800, color: '#0f172a' }}>
-            Welcome to NiralFarm 👋
+            Welcome to IndiBreed Tech 👋
           </h1>
           <p style={{ margin: 0, fontSize: '14px', color: '#64748b' }}>3 quick steps to get your farm running</p>
         </div>
